@@ -2,7 +2,7 @@
 - My notes as a newcomer to the C# language and the .NET platform. At this moment, I don't know anything about language except for the most rudimentary syntax. I am kinda shocked by how the capitalization of methods in C# and I am sure it will take me forever to get used to this.
 - As far as the language goes, I will focus on how it differs from Java.
 - I will break these notes into the following sections:
-	- [C#, the Language](casharp.md)
+	- [C#, the Language](csharp.md)
 	- [.NET, an Overview](dotnet.md)
 	- [Collections and Other Utilities](collutilities.md)
 	- [LINQ](linq.md)
@@ -21,6 +21,11 @@
 - C# is a **managed language** that gets compiled into **managed code** which gets executed by the CLR. The code executed by the CLR is in the form of either an executable file (.exe) or a library (.ddl).
 - The CLR converts the intermediate language (which I think is equivalent to bytecode) into native machine code though aJIT (just in time compilation) mechanism.
 - With *.NET Native*, you can compile code directly into native code.
+
+
+
+
+
 
 
 

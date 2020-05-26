@@ -54,7 +54,7 @@ namespace Mama{
 ### Compile:
 - You write a your C# code in a C# file that's suffixed with a **`.cs`** extension. You compile with the **`csc`** command in a Unix environment. Your code gets compiled to an ***assembly***.  An assembly can be either an *application* or a *library*. An application has an **`extension`**, while a library has a **`.dll`** ending. The difference is that a library doesn't have an entry point (namely, a Main method).
 
-### Syntax:
+## Syntax:
 - An **identifier** is a name you give to a variable, a class, method.. etc. As in other languages, the identifier must be a whole word (made of Unicode characters) that starts with a letter or an underscore. They are case-sensitive as well.
 - Finally I see what's with the case conventions: *parameters, local variables and private fields should be cmalCased*, while other identifiers like methods, class names, namespaces ..etc. are to be *PascaleCased*.
 - C# has a few dozen **keywords**, most of which are reserved!! Why would you use a keyword as an identifier even if it weren't reserved?!!! All keywords are in lower case. You have a **`string`** keyword. 
@@ -155,6 +155,23 @@ string @string = "string";
 </table> 
 
 - Primitives in C# are still similar to those in Java in they are performed. They are compiled directly to machine code instructions.
+
+## Numeric Types:
+- The following table summarizes most of what one needs to know about numerical types in C#
+
+| C# Type | System Type| Suffix | Size | Range |
+| --- | --- | --- | --- | --- |
+| `sbyte` | `SByte` |  | 8 bits | -2<sup>7</sup> to 2<sup>7</sup>-1 |
+| `short` | `Int16` |  | 16 bits | -2<sup>15</sup> to 2<sup>15</sup>-1 |
+| `int` | `Int32` |  | 32 bits | -2<sup>31</sup> to 2<sup>31</sup>-1 |
+| `long` | `Int64` | L | 64 bits | -2<sup>63</sup> to 2<sup>63</sup>-1 |
+| `byte` | `Byte` |  | 8 bits | 0 to 2<sup>8</sup>-1 |
+| `ushort` | `UInt16` |  | 16 bits | 0 to 2<sup>16</sup>-1 |
+| `uint` | `UInt32` | U | 32 bits | 0 to 2<sup>32</sup>-1 |
+| `ulong` | `UInt64` | UL | 64 bits | 0 to 2<sup>64</sup>-1 |
+| `float` | `Single` | F | 32 bits | + or - (~10<sup>-45</sup> to 10<sup>38</sup>) |
+| `double` | `Double` | D | 64 bits | + or - (~10<sup>-324</sup> to 10<sup>308</sup>) |
+| `decimal` | `Decimal` | M | 128 bits | + or - (~10<sup>-28</sup> to 10<sup>28</sup>) |
 
 ## Numeric Types:
 ## Booleans:
