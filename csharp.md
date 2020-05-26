@@ -88,50 +88,73 @@ string @string = "string";
 	+ **Reference types** include class, interface, array and delegate types (including the **`string`** type). These store references to the objects they point to.
 - Reference types be assigned a **`null`**. Value types can't!! See?! This is bad! In Java all objects are nullable and primitives are not! In C# you need to know what's a reference and what's a value type. 
 - Memorywise, reference objects eat up memory of the object itself plus memory for the reference itself.
+- The following tables shows the complete taxonomy of predefined types concerning whether they are value or reference types:
 
 <table>
 	<tr>
-		<th rowspan="11">Value<br>types</th>
+		<th rowspan="15">Value<br>types</th>
 	</tr>
 	<tr>
-		<th rowspan="8">Numeric</th>
+		<th rowspan="12">Numeric</th>
 	</tr>
 	<tr>
 		<th rowspan="4">Signed<br>Integer</th>
-		<td>sbyte<td>
+		<td>sbyte</td>
 	</tr>
 	<tr>
-		<td>short<td>
+		<td>short</td>
 	</tr>
 	<tr>			
-		<td>int<td>
+		<td>int</td>
 	</tr>
 	<tr>			
-		<td>long<td>
+		<td>long</td>
 	</tr>
 	<tr>
 		<th rowspan="4">Unsigned<br>Integer</th>
-		<td>byte<td>
+		<td>byte</td>
 	</tr>
 	<tr>
-		<td>ushort<td>
+		<td>ushort</td>
 	</tr>
 	<tr>			
-		<td>uint<td>
+		<td>uint</td>
 	</tr>
 	<tr>			
-		<td>ulong<td>
+		<td>ulong</td>
 	</tr>
-	<tr colspan="2">
-		<th>Logical</th>
+	<tr>
+		<th rowspan="3">Real<br>Number</th>
+		<td>float</td>
+	</tr>
+	<tr>
+		<td>double</td>
+	</tr>
+	<tr>			
+		<td>decimal</td>
+	</tr>
+	<tr >
+		<th colspan="2" >Logical</th>
 		<td>bool</td>
 	</tr>
-	<tr colspan="2">
-		<th>Character</th>
-		<td>`char`</td>
+	<tr >
+		<th colspan="2">Character</th>
+		<td>char</td>
 	</tr>
-
+	<tr>
+		<th rowspan="3">Reference<br>types</th>
+	</tr>
+	<tr>
+		<th colspan="2">Object</th>
+		<td>object</td>
+	</tr>
+	<tr>
+		<th colspan="2">String</th>
+		<td>string</td>
+	</tr>
 </table> 
+
+- Primitives in C# are still similar to those in Java in they are performed. They are compiled directly to machine code instructions.
 
 ## Numeric Types:
 ## Booleans:
