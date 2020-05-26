@@ -94,7 +94,7 @@ string @string = "string";
 		<th rowspan="11">Value<br>types</th>
 	</tr>
 	<tr>
-		<th rowspan="11">Numeric</th>
+		<th rowspan="8">Numeric</th>
 	</tr>
 	<tr>
 		<th rowspan="4">Signed<br>Integer</th>
