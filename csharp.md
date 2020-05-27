@@ -169,11 +169,55 @@ string @string = "string";
 | `ushort` | `UInt16` |  | 16 bits | 0 to 2<sup>16</sup>-1 |
 | `uint` | `UInt32` | U | 32 bits | 0 to 2<sup>32</sup>-1 |
 | `ulong` | `UInt64` | UL | 64 bits | 0 to 2<sup>64</sup>-1 |
-| `float` | `Single` | F | 32 bits | + or - (~10<sup>-45</sup> to 10<sup>38</sup>) |
-| `double` | `Double` | D | 64 bits | + or - (~10<sup>-324</sup> to 10<sup>308</sup>) |
-| `decimal` | `Decimal` | M | 128 bits | + or - (~10<sup>-28</sup> to 10<sup>28</sup>) |
+| `float` | `Single` | F | 32 bits | ±(~10<sup>-45</sup> to 10<sup>38</sup>) |
+| `double` | `Double` | D | 64 bits | ±(~10<sup>-324</sup> to 10<sup>308</sup>) |
+| `decimal` | `Decimal` | M | 128 bits | ±(~10<sup>-28</sup> to 10<sup>28</sup>) |
 
-## Numeric Types:
+### Numeric Literals:
+- You can represent an integral type using either a decimal or a hexadecimal notation. The hexadecimal notation is prefixed with a **`0x`** as in **`int x = 0x20F`**.
+- Floating types can use a decimal or exponential notation:
+```cs
+double tenth = 0.1;
+double thousand = 1E3;
+```
+- The default integral type is `int` (integer) and for a floating type, it is `double`. The compiler automatically infers these types from literals.
+- Most of the suffixes you see in the table above are useless except for **`D`**  and**`F`**. You use these to distinguish **`flot`** and **`decimal`** types from the default **`double`** type. In fact, these two suffixes are absolutely necessary to use values of float and decimal types:
+```cs
+float f = 2.5 // Won't compile
+decimal d = 2.5 // Won't compile
+
+float f = 2.5F // Will compile
+decimal d = 2.5d // will compile
+```
+
+### Numeric Conversions:
+- As pointed earlier. An implicit conversion can only take place when the integral number is converted into a larger width-bit integral type. Otherwise, the conversion must be explicit using a cast.
+- Converting a **`float`** to a **`double`** can also be implicit. The reverse must be explicitly done.
+- Integral types can be implicitly converted to to float-point types, but the reverse must be done explicitly. The decimal parts are truncated without rounding. If you want to perform rounding, use **`System.Convert`**.
+- Implicit conversion of a large integral type to a floating type preserves magnitude but might result in the loss of precision. There is only so much a floating type's mantissa can hold.
+- Integral types can be implicitly converted into the **`decimal`** type. All other conversions from and to the decimal type are required to be explicit.
+
+### Arithmetic Operators:
+- Integral divisions result in truncating the remainder with a rounding toward zero.
+- By defaults, integral types can result in an overflow without giving any warnings. To get that warning you'd use the **`checked`** operator as in:
+```cs
+sbyte y = 127;
+y++;
+Console.WriteLine(y); // result is -128. Probably not the desired result
+
+sbyte x = 127;
+Console.WriteLine(checked(++x)); // Throws a runtime error because of the overflow
+```
+- You can apply checking for overflow in a whole program using the **`/checked+`** option during compilation as in:
+```
+csc /checked+ lalo.cs
+```
+- Programs compiled with overflow checking as a default, you can use the **`unchecked`** operator for the particular expressions and statements you don't want the underflow to be checked for as in: **`int x = int.MaxValue;`**.
+
+
+### Integral peculiarities:
+### Floating Peculiarities:
+
 ## Booleans:
 ## Strings and Characters:
 ## Array:
