@@ -213,14 +213,77 @@ Console.WriteLine(checked(++x)); // Throws a runtime error because of the overfl
 csc /checked+ lalo.cs
 ```
 - Programs compiled with overflow checking as a default, you can use the **`unchecked`** operator for the particular expressions and statements you don't want the underflow to be checked for as in: **`int x = int.MaxValue;`**.
-
+- Expressions evaluated at compile time are always checked by default.
 
 ### Integral peculiarities:
+- This is weird: 8-bit and 16-bit don't have their arithmetic operators. C# converts these to integers and then apply whatever operations you choose for them. The following example shows issues with such a set up:
+```cs
+short x = 9;
+short y = 1;
+
+short z = x + y; // This results in a compile time error
+short w = (short) x + y; // The cast fixed the problem
+```
+
 ### Floating Peculiarities:
+- Floating-point types have some special values such as **NaN**, **∞**, **-∞**, and **-0**. The following table shows these:
+
+| Value | Double Constant | Float Constant |
+| --- | --- | --- |
+| Nan | **`double.NaN`** | **`float.NaN`** |
+| +∞ | **`double.PositiveInfinity`** | **`float.PositiveInfinity`** |
+| -∞ | **`double.NegativeInfinity`** | **`float.NegativeInfinity`** |
+| -0 | **`-0.0`** | **`-0.0F`** |
+
+- Dividing zero by a non-zero results in an infinity, positive or negative based on the operands.
+- Dividing a zero by a zero results in a NaN.
+- A NaN is not equal to any number including another NaN if an **`==`** operator is used. Checking the equality of two NaNs with the **`.equal()`** method results in a true, though!
 
 ## Booleans:
+- A boolean takes only one bit to store, but the smallest unit the runtime can work with is one byte, so we use a byte for it. The runtime offers the **`BitArray`** class for storing boolean values are single bits. 
+- C#, like almost every other language has a ternary operator **`(x > y) ? x : y`**
+
 ## Strings and Characters:
+- C# characters (**`char`** / **`System.Char`**) are Unicode characters made of bytes. A character can also be input using its 4-digit hex Unicode code preceded by a **`\u`** or **`\x`** as in **`'\x132D'`** and **`'\u132D'`**.
+- I believe that characters are enclosed within single quotes just like in other C-like languages.
+- While strings (**`string`** / **`System.String`**) are reference type, their equality operator **`==`** acts as if its operands are of value type.
+- C# strings can be ***verbatim***, meaning they contain what you type in them and escape characters are useless in these. These are specified by prepending a **`@`** to the string as in:
+```cs
+Console.WriteLine(@"\n I am sick of this thing!\t");
+// Outputs => "\n I am sick of this thing!\t"
+```
+- The string concatenation operator **`+`** is inefficient if used many times. A more efficient way can be done with the string builder **`System.Text.StringBuilder`**.
+- **String interpolation** refers to using strings as some kind of templates where you inject expressions. They are similar to Javascript's template literals: 
+```cs
+Console.WriteLine($"I want {15 * 3} books!!!");
+```
+
 ## Array:
+- There is a variety of ways you can declare and initialize a variable in C#:
+```cs
+int[] nums = new int[3];
+int[] integers = new int[] {1,2, 3};
+int[] numbers = {1, 2, 3};
+```
+- An array's length can be accessed through the **`Length`** property.
+- For 2D arrays, you can either have a rectangular arrays, whose two sides are equal in size, or jagged (the inner arrays variable lengths). A rectangular array looks as follows:
+```cs
+int[,] matrix = new int[,] {
+	{0,1,2},
+	{3,4,5},
+	{6,7,8}
+};
+```
+- A jagged matrix is initialized as follows:
+```cs
+int[][] matrix = new int[][] {
+	new int[] {0,1,2},
+	new int[] {3,4,5},
+	new int[] {6,7,8,9}
+};
+```
+- C# does also have the infamous **`indexOutOfRangeException`** runtime error!
+
 ## Variables and Parameters:
 ## Expressions and Operators:
 ## Null Operators:
