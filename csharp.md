@@ -258,7 +258,7 @@ Console.WriteLine(@"\n I am sick of this thing!\t");
 Console.WriteLine($"I want {15 * 3} books!!!");
 ```
 
-## Array:
+## Arrays:
 - There is a variety of ways you can declare and initialize a variable in C#:
 ```cs
 int[] nums = new int[3];
@@ -285,7 +285,78 @@ int[][] matrix = new int[][] {
 - C# does also have the infamous **`indexOutOfRangeException`** runtime error!
 
 ## Variables and Parameters:
+- A variable can be a *local variable, parameter, field* or *array element*.
+
+### Heap and Stack:
+- Variables live in two regions in memory called the ***stack*** and ***heap***. In each one of these regions, variables have different behaviors.
+- Function parameters and local variables live in the stack. When a function is entered, its parameters and local variables are added tot stack and the stack grows. When the function is exited, its parameters and local variables are removed and the stack shrinks.
+- Reference type instances live in the **heap**. When objects are created, they are added to the heap and when no long referenced, the garbage collector clean them away. The garbage collector does the cleaning periodically. Objects that are still referenced are not touched by the collector. 
+- Instances declared as fields of classes or array elements live in the heap. 
+- The heap also stores static fields. Static fields don't get garbage collected, however. They live live as long as the application itself.
+- Each type has a default of some short (integers, for example have 0 as their default value). You must initialized variable you declare before you can use them, but some cases such variables can have their default values even if you don't initialize them. Class **fields are initialized automatically to their types default values**. You can obtain the default value of any variable using the **`default`** keyword as in:
+```cs
+int x = default(int);
+```
+- The default values for common types are as follow:
+
+| TYPE | DEFAULT VALUE |
+| --- | --- |
+| Rference Types | `null` |
+| Numeric Types | `0` |
+| `char` | `\0` |
+| `bool` | `false` |
+
+### Parameters:
+- Paramters are passed by value by default. Value types get copied into functions. For reference types, copies of references to the objects are obtained by the function. Making a change in the function is reflected in the object. Basically, an independent copy of a reference to an object is created when such as a parameter is passed into a function. 
+- With the **`ref`** modifier, you can make a parameter act as if it's passed by reference, as if you're passing a C pointer to your function. The **`ref`** modifier should placed in both the function definition and the call to that function. The following examples shows how it works:
+```cs
+using System;
+
+class Test {
+	static void Lala(ref int a){
+		a = a * 2;
+	}
+
+	static void Main(){
+		int x = 44;
+		Lala(ref x);
+		Console.WriteLine(x); // Outputs 88
+	}
+}
+```
+- A parameter can be passed by value or by reference regardless of whether the parameter is a of a type or reference value. 
+- There is another modifier called **`out`** that almost works like **`ref`**, but I kinda find it a little useless.
+- Passing an argument by reference merely aliases the storage location of an existing variable instead of creating a new one. That might be good for memory but would create nightmares when a lot of functions can change their parameters and result in some bad bugs!
+- You can add the **`params`** modifier to the last parameter of a method allowing the method to accept any number of arguments of the type of that parameter. Params following this modifier are placed in an array:
+```cs
+using System;
+
+class Test {
+	static void mama(string potato, char a, params int[] ints){
+		Console.WriteLine(potato);
+		Console.WriteLine(a);
+		Console.WriteLine("");
+		for (int i = 0; i < ints.Length; i++)
+			Console.WriteLine($"Param no: {i}");
+	}
+
+	static void Main(){
+		mama("potato", 'p', 1,2,3,4,5);
+	}
+}
+```
+- **Named parameters** are another gimmicky useless addition that only adds confusion.
+- **Optional parameters** are the exact same ones as their counterparts in Javascript. In a function's definition you provide a fallback value if no argument is given as in **`void Foo(int x = 55)`**. If Foo is called with no arguments, x's value becomes 55.
+
+### Var:
+- The **`var`** keyword is similar to how it works in Javascript. You don't need to supply a type label. However, C# remains a statically typed language. You can't change the type of a variable declared with the keyword **`var`**:
+```cs
+var x = 3333;
+x = "GITHUB"; // This causes a compile error
+```
+
 ## Expressions and Operators:
+
 ## Null Operators:
 ## Statements:
 ## Namespaces:
