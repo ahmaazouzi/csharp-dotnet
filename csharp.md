@@ -356,10 +356,135 @@ x = "GITHUB"; // This causes a compile error
 ```
 
 ## Expressions and Operators:
+- An expression is a block that returns a value, this can be as small as a variable or a constant (a literal).
+- There void expressions, those which don't return anything or return a void value such as a print statement.
+- C# has a bunch of operators. Some of them can be overloaded.
 
 ## Null Operators:
+- To prevent the headaches associated with nulls, C# provides two operators:
+	+ **The null-coalescing oprator (`??`)**. If the first operand is null, give the second one. **`string s = v ?? "No String!"`**
+	+ **The null-conditional operator (`?.`)**. This is also called the ***Elvis*** operator. It calls methods and accessed members of a class/object. If the object is null, this the expression evaluates to null instead of resulting in a **`NullReferenceException`** as the following example shows:
+```cs
+object s = null;
+string s1 = s?.ToString();
+```
+
 ## Statements:
+- Statements execute sequentially in the order they appear in the source code. A ***statement block*** is a series of statements enclosed within braces.
+
+### Declaration Statements:
+- These are the ones used to declare variables and constants. The initialization in a variable declaration statement is optional, but it is mandatory in constants. Constants are declared with the **`const`** keyword.
+- One peculiarity that might actually be good is the fact that even if an outer variable is declared after a block, it hides the variable inside the block. "Scope extends in both directions."
+
+### Expression Statements:
+- These either change state or call something that changes state. They include: method calls, assignment expression and object instantiation. 
+
+### Selection Statements:
+- These include **if** statements with **else** clauses and **switch** statements.
+
+### Iteration Statements:
+- C# has the regular iteration statements **for**, **while** and **do while**.
+- The one special iteration statement is **foreach**. It acts like Python and Javascript's **for in**:
+```cs
+int[] baba = {1, 2, 3, 4, 5};
+foreach(int i in baba)
+	Console.WriteLine(i * 3);
+```
+- **foreach** statements have one important limitation. You can't directly change the content of an array with this statement.
+
+### Jump Statements:
+- With the **`break`** statement you can break out of an iteration or a switch statement.
+- **`continue`** allows you to skip steps in iterations.
+- **`goto`** is used to create spaghetti code.
+- With **`return`** you exit any method!
+- **throw** throws an exception  indicating the occurrence of an error:
+```cs
+if (index < 0 || index >= numbers.Length)
+	throw new IndexOutOfRangeException();
+```
+
 ## Namespaces:
+- Namespaces are a great way of organizing code and avoiding conflicts. Namespaces are independent of assemblies and have no impact on member visibility.
+- Namespaces can be nested and are defined using the **`namespace`**. The following code defines some nested namespaces:
+```cs
+namespace Out {
+	namespace Middle {
+		namespace In {
+			// Classes go here
+		}
+	}
+}
+```
+- Nested namespaces are separated by dots. The following snippet is identical to the one above:
+```cs
+namespace Out.Middle.In {
+	// Classes go here
+}
+```
+- Classes/types not defined inside a namespace live in the ***global namespace***. The global namespace also includes all the top level namespaces.
+
+### `using`:
+- **`using`** is used to *import* namespaces. It allows you to use the contents of a namespace without their fully qualified names.
+- **`using`** allows you to import specific types. When used with the modifier **`static`** as in **`using static System.Console;`**. This allows you to use all the public static fields and methods of that class. Now, you don't need the boring wordy **`Console.WriteLine()`**. You can do with just **`WriteLine()`**.
+- You can and should use similar names of classes across multiple namespaces. It is not always easy to come up with good names.
+
+### Namespace Rules:
+- **Name Scoping** is largely obvious. Inner namespaces don't need to qualify  names defined in outer namespaces.
+- **Name hiding** occurs when similar names are defined in the current and outer namespaces. The inner name hides the outer one. To avoid the clash, go ahead and fully qualify the outer name.
+- **Repeated namespaces**: Namespaces can be repeated within the same namespace as long as the types inside the repeated namespaces have types with different names.
+
+### Aliasing Namespaces:
+- Namespaces can be aliased as in the following example:
+```cs
+using PropertyInfo2 = System.Reflection.PropertyInfo;
+```
+
+# Object Oriented C#:
+## Classes:
+- A class definition can be as simple as:
+```cs
+class Something {
+}
+```
+- A typical may also have the following syntactic elements:
+	+ Preceding the keyword **`class`**: *Attributes* (we will see these later) and *class modifiers*
+	+ Following the class Name: *Generic type parameters, a base class* and *interfaces*.
+	+ Inside braces: *Class members* (which includes methods, properties, constructors... etc.)
+
+### Fields:
+- They are variables that are members of classes or structs. They can have their own modifiers.
+- One special modifier that a C# field can have is the **`readonly`**. This doesn't quite make it field a constant since it can be assigned only once in a constructor or a field initializor. A const is decided at compile time. A readonly field is assigned only once in run time and once assigned it can't be changed. 
+
+## Inheritance:
+## The `object` Type:
+## Structs:
+## Access Modifiers:
+## Interfaces:
+## Enums:
+## Nested Types:
+## Generics:
+
+# Advanced C#:
+## Delegates:
+## Events:
+## Lambda Expressions:
+## Anonymous Methods:
+## Exceptions:
+## Anonymous Types:
+## Dynamic Binding:
+## Attributes:
+## Caller Info Attributes:
+## Unsafe Code and Pointers:
+## Preprocessor Directives:
+## XML Documentation:
+
+
+
+
+
+
+
+
 
 
 
