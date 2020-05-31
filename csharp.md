@@ -455,6 +455,142 @@ class Something {
 - They are variables that are members of classes or structs. They can have their own modifiers.
 - One special modifier that a C# field can have is the **`readonly`**. This doesn't quite make it field a constant since it can be assigned only once in a constructor or a field initializor. A const is decided at compile time. A readonly field is assigned only once in run time and once assigned it can't be changed. 
 
+### Methods:
+- Methods within the same class must have **unique signatures**. A unique signature is a combination of the method's name and the types of its parameter.
+- One line methods can be reexpressed in a more elegant way (similar to Java's lambdas and ES6 arrow functiona):
+```cs
+// The following two methods are identical
+int Add(int a, int b){ return a + b;}
+int Add(int a, int b) => a + b;
+// The following two methods are identical
+void printInt(int a){ Console.WriteLine(a); }
+void printInt(int a) => Console.WriteLine(a);
+```
+- Methods within the same type can **overload** each other, meaning they can have the same name but different signatures. Be careful about the **`ref`**/**`out`** modifiers. These can also have a role in overloading methods.
+
+### Constructors:
+- Constructors can also be overloaded. A constructor can call another constructor to avoid code duplication as in:
+```cs
+using System;
+using c = System.Console;
+
+ public class Test {
+	static void Main(){
+		Cat cat1 = new Cat(1, "Sam", "Persian");
+		Cat cat2 = new Cat(2);
+		Cat cat3 = new Cat(3, "Meg", "Bengal");
+		Cat cat7 = new Cat(7, "Burmeze");
+
+		c.WriteLine($"{cat1.Age}, {cat1.Name}, {cat1.Breed}");
+		c.WriteLine(cat2.Age);
+		c.WriteLine($"{cat3.Age}, {cat3.Name}, {cat3.Breed}");
+		c.WriteLine($"{cat7.Age}, {cat7.Name}");
+	}
+}
+
+class Cat {
+	public int Age;
+	public string Breed;
+	public string Name;
+
+	public Cat(int age){
+		Age = age;
+	}
+
+	public Cat(int age, string name): this(age){
+		Name = name;
+	}
+
+	public Cat(int age, string name, string breed): this(age, name){
+		Breed = breed;
+	}
+}
+```
+- The only odd thing so far about constructors and type creation is the fact that objects are instantiated without the use of **`this`** keyword, the way it's done in Java. 
+- The compiler generates an implicit **parameterless constructor** if you don't define a constructor. If you define a constructor, no automatic parameterless constructor is generated.
+- In C#, too, a static factory method is suggested as a replacement for public constructors. This comes straight from the book *Effective Java*.
+
+### Object Initializers:
+- These allow you to set the public fields of a class directly. They are terser. The following two snippets do the exact same thing.
+
+```cs
+Cat cat1 = new Cat {Age=22, Name="Baba", Breed="Egyptian"};
+
+```
+```cs
+Cat cat1 = new Cat();
+cat1.Age = 22;
+cat1.Name = "Baba";
+cat1.Breed = "Egyptian";
+```
+
+### `this`:
+- The **`this`** keyword refers to the current instance. It might not be as useful in C# as it is in Java because C# capitalizes fields and keeps parameters (including constructor parameters) camelcased??!!!
+
+### Properties:
+- The weird and contrarian naming patterns keeps getting weirder!
+- Properties are similar to field but they contain logic. A property has a **`get`/`set`** block. **`get`** and **`set`** act as property *accessors*. This is reminiscent of the setters/getters stuff you hear about everywhere. The following snippet shows you how 
+```cs
+class Cat {
+	string name;
+	public string Name {
+		get {return name;}
+		get {name = value;}
+	}
+}
+```
+- To use a property you'd do:
+```cs
+Cat cat = new Cat();
+cat.Name = "Mickey";
+Console.WriteLine(cat.Name);
+```
+- If a property has only a `set` accessor, it is write-only. If it only has a `get` accessor, it is read-only.
+- You can also have a computed value of a property as the following example shows:
+```cs
+double Price {
+	get {return net - discount + tax;}
+}
+```
+- A read-only property can be expressed using an arrow function:
+```cs
+double Price =>  net - discount + tax
+```
+- **Automatic properties** allow you create properties without specifying a backing field. In our earlier examples, we first specified fields and then created properties that acted as setters/getters on them. The following examples shows you how you might not really need such a backing field:
+```cs
+class Cat {
+	public string Name { get; set;}
+}
+```
+- The compiler automatically generates a private field that can't be referenced. You can make the set accessor a private or protected field to make it read only yo other types.
+- Properties can have initial values with property initializers:
+```cs
+class Cat {
+	public string Name { get; set;} = "Johnny";
+}
+```
+- You can make such a property read only.
+- `set` and `get` can have their own access modifiers to control access to the property. It's common to make the property itself public, `get` public and `set` private or protected.
+
+### Indexers:
+- These are similar to properties with the exception that they access indexed arguments instead of property names. I don't know when I will ever need this, so I won't even bother.
+
+### Static Constructors:
+- A ***static constructor*** runs once per class. There can be only one static constructor per class and it must be parameterless:
+```cs
+class Hack {
+	static Hack(){
+		Console.WriteLine("Let the hacking bagin!");
+	}
+}
+```
+
+### Static Class:
+- A static class is marked by a static modefier. It can only have static members and cannot be subclassed. `System.Console` is a static class.
+
+### The `nameof` Operator:
+- **`nameof`** returns the name of any symbol (variable, member, class, method... etc.) as a string??!! What's the point?!
+
 ## Inheritance:
 ## The `object` Type:
 ## Structs:
