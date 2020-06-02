@@ -592,6 +592,41 @@ class Hack {
 - **`nameof`** returns the name of any symbol (variable, member, class, method... etc.) as a string??!! What's the point?!
 
 ## Inheritance:
+- Basically, C# replaces Java's `extends` with a colon **`:`**:
+```cs
+class Animal{
+	public string Name;
+}
+
+class Cat : Animal {
+}
+```
+
+### Polymorphism:
+- The polymorphic nature of object-oriented programming is obviously present in C# as well. When instantiating objects, you make them of superclass types. Referring to objects by their interfaces and superclasses makes them more flexible for maintainability. The language is smart enough to tell the concrete object it's dealing with. After all, polymorphism is the core of OOP!
+
+### Casting and Reference Conversions:
+- You can ***upcast*** a class to its base class and ***downcast*** a class to its subclass. These two types of casting result in ***reference conversions***, namely, a new reference with a different type (though related) that point to the same object is created. While an upcast always succeeds, and downcast might succeed depending on a number of conditions. 
+- When you upcast a class, it loses methods it had before the upcasting.
+- The **`as`** operator is language features that facilitates casting/reference conversions. It creates a downcast and if the downcast fails it creates a null instead of throwing an error:
+```cs
+Animal a = new Animal();
+Cat c = a as Cat; 
+```
+- With the **`is`** operator, you can check if a reference conversion is possible as in **`if (Cat is Animal) { // Do something;}`**.
+
+### Virtual Function Members:
+- Virtual function members can be **overridden**. To override a method, property, indexer... etc., you'd mark it with **`virtual`** keyword and mark the inherited class with the **`override`** keyword. The signature, return type and accessibility of the overrider and overridden must be the same:
+```cs
+class Animal {
+	public virtual string Sound => "No sound ...";
+}
+
+class Cat: Animal {
+	public override string Sound => "Miow";
+}
+``` 
+
 ## The `object` Type:
 ## Structs:
 ## Access Modifiers:
@@ -600,19 +635,7 @@ class Hack {
 ## Nested Types:
 ## Generics:
 
-# Advanced C#:
-## Delegates:
-## Events:
-## Lambda Expressions:
-## Anonymous Methods:
-## Exceptions:
-## Anonymous Types:
-## Dynamic Binding:
-## Attributes:
-## Caller Info Attributes:
-## Unsafe Code and Pointers:
-## Preprocessor Directives:
-## XML Documentation:
+
 
 
 
