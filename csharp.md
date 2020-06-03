@@ -627,6 +627,61 @@ class Cat: Animal {
 }
 ``` 
 
+### Abstract Classes and Abstract Members:
+- Classes declared as **`abstract`** are never instantiated. Only the concrete subclasses of an abstract class can be instantiated. Abstract classes can have abstract members. Abstract members are similar to virtual members, except in that they don't have default implementation and they must be implemented by the subclasses of the abstract class. Overriding an abstract method is also done using the `override` keyword:
+```cs
+class Animal {
+	public virtual string Sound;
+}
+
+class Cat: Animal {
+	public override string Sound => "Miow";
+}
+```
+
+### Hiding Inherited Members:
+- When a class and its base class define the same member, the parent member gets hidden.
+- The compiler generates a warning that the base class members has been hidden. Generally, a member hiding another member inherited from some base class is made accidentally. The warning will always be generated even if creating the hiding member were deliberate. To avoid generating such a warning, you can use the **`new`** keyword as in:
+```cs
+class Animal {
+	public string Sound => "Niet Sound!!!";
+}
+
+class Cat: Animal {
+	public new string Sound => "Miow";
+}
+```
+
+### Sealing Functions and Classes:
+- With the **`sealed`** keyword, you can:
+	+ Seal an overridden function from further overriding by functions in classes that subclass the current class. This modifier should be applied to the function itself.
+	+ Apply the `sealed` keyword to the class itself, so that any class that inherit from the current class is unable to override its virtual functions.
+- Sealing classes is a more common practice than sealing functions.
+
+### The `base` Keyword:
+- With the **`base`**, you can access an overridden function from the subclass. Even a hidden function can be called with `base`. You can also use it to access the constructor of the base class.
+- This is basically Java's `super` keyword.
+
+### Constructors and Inheritance:
+- I can't tell why, but subclasses don't automatically inherite constructors from base classes. Subclasses must either redefine their own constructors. They can call their baseclasses constructors to redefine their own using the keyword `base`:
+```cs
+class Animal {
+	public string Species;
+	public Animal(string species="None"){
+		this.Species = species;
+		c.WriteLine(Species);
+	}
+}
+
+class Cat: Animal {
+	public Cat(string species): base (species){}
+}
+```
+- A constructor in a subclass can call a baseclass parameterless constructor without the keyword `base`.
+
+### Overloading and Resolution:
+- 
+
 ## The `object` Type:
 ## Structs:
 ## Access Modifiers:
