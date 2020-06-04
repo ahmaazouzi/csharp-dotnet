@@ -52,7 +52,7 @@ namespace Mama{
 - I am using Sublime Text 3 to test code and so far I haven't been getting a lot of errors, almost none! That wasn't the case with Java where I almost always had to use the eclipse to avoid too many syntax errors.
 
 ### Compile:
-- You write a your C# code in a C# file that's suffixed with a **`.cs`** extension. You compile with the **`csc`** command in a Unix environment. Your code gets compiled to an ***assembly***.  An assembly can be either an *application* or a *library*. An application has an **`extension`**, while a library has a **`.dll`** ending. The difference is that a library doesn't have an entry point (namely, a Main method).
+- You write a your C# code in a C# file that's suffixed with a **`.cs`** extension. You compile with the **`csc`** command in a Unix environment. Your code gets compiled to an ***assembly***.  An assembly can be either an *application* or a *library*. An application has an **`.exe`** extension, while a library has a **`.dll`** ending. The difference is that a library doesn't have an entry point (namely, a Main method).
 
 ## Syntax:
 - An **identifier** is a name you give to a variable, a class, method.. etc. As in other languages, the identifier must be a whole word (made of Unicode characters) that starts with a letter or an underscore. They are case-sensitive as well.
@@ -683,8 +683,36 @@ class Cat: Animal {
 - 
 
 ## The `object` Type:
+- The **`object`**/**`System.Object`**type is the baseclass that everything else inherits from. You can upcast anything to the object type. The book gives an example of a stack structure of the object type. This stack can store anything. Just upcast an object to type object and push it into the . When you need it, you pull it and downcast it to its original class.
+
+### Boxing and Unboxing:
+- The `object` type is a reference type. Types like `int` are of a value type. Conversion from value type to reference type is called ***boxing***. The reverse is called ***unboxing***. One of these two conversions always take place when casting between the `object` type and any value-type. Depending on the type, an explicit casting might be required.
+
 ## Structs:
+- Structs seem really redundant, but whatever! These are the same as classes but they are value type objects and they don't inherit or are inherited from. They have a few other limitations such as the abscence of parameterless constructors or absence of virtual members.
+- Value type is more efficient as the creation of a new value type doesn't require the instantiation of a new object in the heap.
+
 ## Access Modifiers:
+- **`public`** is visible to the whole world.
+- **`internal`** is visible within the current assembly or friend assemblies (I don't know what a friend assembly is). It is also the default if no access modifier is specified.
+- **`private`** is only accessible within a type. It is the default of a class members.
+- **`protected`** is only accessible to the type and its subclasses. 
+- **`protected internal`** is a union of protected and internal. Something marked with this modifier is accessible if it is protected OR internal.
+
+### Friend Assemblies:
+- We can expose the internal members of an assembly using the **`System.Runtime.CompilerServices.InternalsVisibleTo `** assembly attribute:
+```cs
+[assembly: InternalsVisibleTo ("Friend")]
+```
+
+### Accessibility Capping:
+- Accessibility capping happens when a type limits the accessibility of its members. Public members in an internal class are not public but are capped by their internal class: they are internal!
+- Making members public is more useful than internal. If one day you want yo make your internal class public, you don't need to make its members public, they are already public. Inside an internal class, they were capped.
+
+### Restrictions on Access Modifiers:
+- Overridden functions must have the same access modifiers.
+- Subclassed types must have the same accessibility or be less accessible than their base classes.
+
 ## Interfaces:
 ## Enums:
 ## Nested Types:
