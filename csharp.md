@@ -535,7 +535,7 @@ class Cat {
 	string name;
 	public string Name {
 		get {return name;}
-		get {name = value;}
+		set {name = value;}
 	}
 }
 ```
@@ -714,9 +714,116 @@ class Cat: Animal {
 - Subclassed types must have the same accessibility or be less accessible than their base classes.
 
 ## Interfaces:
+- Interfaces provide a specification rather than an implementation. While Abstracts provide partial implementations, interfaces are completely abstract. They are special in that:
+	+ They are ***all implicitly abstract***.
+	+ A class or a struct can implement multiple interfaces.
+- Notice how structs, too, can implement interfaces. 
+- Interface members can only be methods, properties or indexers.
+- Interface members are all implicitly public and cant declare access modifiers.
+- Interface example:
+```cs
+internal interface Animal {
+	string Name { get; }
+}
+
+internal class Cat: Animal{
+	public string name;
+	public string Name {
+		get { return this.name;}
+		set { this.name = value;}
+	}
+}
+```
+- An object can be implicitly cast to an interface it implements, obviously.
+
+### Extending Interfaces:
+- You can create composite interfaces by making interfaces inherit from other interfaces.
+
+### Explicit Interface Implementation:
+- Since a class can multiple interfaces, there might be collusions when two classes have members that share the same name. To avoid such a problem, you need to explicitly implement some or all members that share the same name. To call an explicitly implemented member, you need to cast the implementing class to the interface where the member is specified. This resuls in not so beautiful code:
+```cs
+using System;
+
+public class Test {
+	static void Main(){
+		BarClass bar = new BarClass();
+		bar.Foo();
+		((Bar2)bar).Foo();
+	}
+}
+
+internal interface Bar1 {
+	void Foo();
+}
+
+internal interface Bar2 {
+	void Foo();
+}
+internal class BarClass: Bar1, Bar2 {
+	public void Foo(){
+		Console.WriteLine("Bar 1");
+	}
+
+	void Bar2.Foo(){
+		Console.WriteLine("Bar 2");
+	}
+}
+```
+
+### Virtual Implementation and Reimplementation:
+- Implementing the members of an interface results results in sealed members in the implementing class. To be able to implement these in classes that subclass the current class, you need to make these virtual or abstract:
+```cs
+using System;
+using c = System.Console;
+
+public class Test {
+	static void Main(){
+		Persian persian = new Persian();
+		persian.Name = "Farhad";
+		c.WriteLine(persian.Name);
+	}
+}
+
+internal interface Animal {
+	string Name { get; }
+}
+
+internal class Cat: Animal{
+	public string name;
+	public virtual string Name {
+		get { return this.name;}
+		set { this.name = value;}
+	}
+}
+
+internal class Persian: Cat {
+	public override string Name {
+		get { return this.name;}
+		set { this.name = "I am " + value;}
+	}
+}
+```
+
+- When an interface member is explicitly implemented, it can't be overridden or marked as `virtual`, but it must instead be *reimplemented*. Reimplementation will work regardless whether the member in the base class is declared virtual or not. Reimplementing an interface in a subclass without consulting its concrete parents is called *reimplementation hijacking*. Hijacking is bad because it breaks when you cast the subclass to its base class. Try to avoid it if you can!
+
 ## Enums:
+- A little disappointing! C# enums are kinda bland and don't do much. They are groups of named constants:
+```cs
+public enum Degrees {Bachelor, Master, PhD};
+```
+- Each enum has an underlying integral value.
+
 ## Nested Types:
+- Nested types are types that live in the scopes of other types.
+- A nested type has these features:
+	+ It has access to everything in the enclosing type, including private members. They also have access to everything the enclosing type has access to.
+	+ It can have all access modifiers.
+	+ Its default access modifier is private instead of internal.
+	+ Accessing a nested type from outside the enclosing type is similar to Accessing a static member. You access the type and not an instance of it.
+	+ All types can be nested inside a class or a struct. 
+
 ## Generics:
+- Generic types declare *type parameters*
 
 
 
