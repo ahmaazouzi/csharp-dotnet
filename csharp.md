@@ -823,8 +823,98 @@ public enum Degrees {Bachelor, Master, PhD};
 	+ All types can be nested inside a class or a struct. 
 
 ## Generics:
-- Generic types declare *type parameters*
+- Generics allow for code reuse
 
+### Generic Types:
+- C#'s ***generics*** are superior to Java's in at least one aspect. Their syntax is cleaner.
+- They declare *type parameters*, which are placeholder types to be filled by the consumers of generic types.
+```cs
+using System;
+using c = System.Console;
+
+class Test {
+	static void Main(){
+		object one = 1;
+		object three = 3;
+		ListOfTen<object> list = new ListOfTen<object>();
+		list.Put(one, 1); 
+		list.Put(three, 2); 
+		c.WriteLine(list.Get(1));
+		c.WriteLine(list.Get(2));
+
+		ListOfTen<char> list2 = new ListOfTen<char>();
+		list2.Put('a', 1); 
+		list2.Put('z', 2); 
+		c.WriteLine(list2.Get(1));
+		c.WriteLine(list2.Get(2));		
+	}
+}
+
+class ListOfTen<T>{
+	T[] List = new T[10];
+
+	internal void Put(T item, int pos){
+		if (pos >= 0 && pos < List.Length)
+			List[pos] = item;
+		else
+			c.WriteLine("Whaaaat?!!!!");
+	}
+
+	internal T Get(int pos){
+		return List[pos];	
+	}
+}
+``` 
+- Something like `List<T>` is considered an *open type*, while `List<int>` is a *closed type*.
+
+### Purpose of Generics:
+- Generics allow for an incredible amount of code reuse! Instead of creating a bunch of lists, one for integers, another for strings and another for floats... etc. or, instead of plaguing your life with a bunch of downcasts and upcasts and boxings/unboxings along with the `object` type and depriving yourself of the blessings of compile time checking, you can create a generic type or method and let the compiler takes care of the magic. Basically, you get minimal casting/unboxing while reusing your code and maximizing type safety.
+
+### Generic Methods:
+- Only methods, classes, structs, delegates and interfaces can be generics.
+- A method is a generic when it has its own type parameters enclosed in in a diamond operator. A method inside a generic class which merely uses its enclosing type's type parameters is not a generic method.
+
+### Declaring Type Parameters
+- A genric can have multiple type parameters: **`Map<T, V> { ... }`**.
+- A generic can be overloaded as long as the overloading generic has a different number of type parameters as in:
+```cs
+class A {}
+class A<T> {}
+class A<T,V> {}
+```
+- **`T`** inside the diamond operator doesn't really mean anything. You can use a **`V`** or **`L`** or whatever, but programmers seem fixated on T.
+
+### Generic Constraints:
+- Constraints are upper bounds you put on your type parameters, thus restricting what types can be used to fill your template types. Constraints can be one of the following:
+	+ **`a`**
+	+ **`a`**
+	+ **`a`**
+	+ **`a`**
+	+ **`a`**
+	+ **`aa`**
+	+ **`a`**
+
+### Subclassing Generic types:
+-
+
+### Self-
+Referencing Generic Declarations:
+-
+
+### Static Data:
+-
+
+### Type Parameters and Conversions:
+-
+
+### Covariance:
+-
+
+### Contravariance:
+-
+
+### C# Generics vs C++ Templates:
+-
 
 
 
