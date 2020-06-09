@@ -963,18 +963,18 @@ class A<T,V> {}
 
 ### Generic Constraints:
 - Constraints are upper bounds you put on your type parameters, thus restricting what types can be used to fill your template types. Constraints can be one of the following:
-	+ **`where T: base-class`**: type parameter can only match or subclasses some class.
-	+ **`where T: interface`**: type parameter must implement a give interface:
++ **`where T: base-class`**: type parameter can only match or subclasses some class.
++ **`where T: interface`**: type parameter must implement a give interface:
 ```cs
 static T Max <T> (T a, T b) where T : IComparable<T>{
 	return a.CompareTo (b) > 0 ? a : b;
 }
 ```
-	+ **`where T: class`**: T must be a reference type.
-	+ **`where T: struct`**: T must be a value type
-	+ **`where T: new()`**: T must have a parameterless constructor.
-	+ **`where T: where T: `**
-	+ **`where U: T`**: One type parameter must derive from another type parameter. Imagine extracting a sublist from another list.
++ **`where T: class`**: T must be a reference type.
++ **`where T: struct`**: T must be a value type
++ **`where T: new()`**: T must have a parameterless constructor.
++ **`where T: where T: `**
++ **`where U: T`**: One type parameter must derive from another type parameter. Imagine extracting a sublist from another list.
 
 ### Subclassing Generic types:
 - A generic can extend can extend another generic while leaving the subclass types open:
