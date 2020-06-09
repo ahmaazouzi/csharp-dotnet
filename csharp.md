@@ -1,3 +1,80 @@
+# Table of Contents:
+- [C, the Language](#c-the-language)
+	* [Basics](#basics)
+		+ [Hello, Jahan!](#hello-jahan!)
+		+ [Compile](#compile)
+	* [Syntax](#syntax)
+	* [Types](#types)
+	* [Numeric Types](#numeric-types)
+		+ [Numeric Literals](#numeric-literals)
+		+ [Numeric Conversions](#numeric-conversions)
+		+ [Arithmetic Operators](#arithmetic-operators)
+		+ [Integral peculiarities](#integral-peculiarities)
+		+ [Floating Peculiarities](#floating-peculiarities)
+	* [Booleans](#booleans)
+	* [Strings and Characters](#strings-and-characters)
+	* [Arrays](#arrays)
+	* [Variables and Parameters](#variables-and-parameters)
+		+ [Heap and Stack](#heap-and-stack)
+		+ [Parameters](#parameters)
+		+ [Var](#var)
+	* [Expressions and Operators](#expressions-and-operators)
+	* [Null Operators](#null-operators)
+	* [Statements](#statements)
+		+ [Declaration Statements](#declaration-statements)
+		+ [Expression Statements](#expression-statements)
+		+ [Selection Statements](#selection-statements)
+		+ [Iteration Statements](#iteration-statements)
+		+ [Jump Statements](#jump-statements)
+	* [Namespaces](#namespaces)
+		+ [`using`](#using)
+		+ [Namespace Rules](#namespace-rules)
+		+ [Aliasing Namespaces](#aliasing-namespaces)
+- [Object Oriented C](#object-oriented-c)
+	* [Classes](#classes)
+		+ [Fields](#fields)
+		+ [Methods](#methods)
+		+ [Constructors](#constructors)
+		+ [Object Initializers](#object-initializers)
+		+ [`this`](#this)
+		+ [Properties](#properties)
+		+ [Indexers](#indexers)
+		+ [Static Constructors](#static-constructors)
+		+ [Static Class](#static-class)
+		+ [The `nameof` Operator](#the-nameof-operator)
+	* [Inheritance](#inheritance)
+		+ [Polymorphism](#polymorphism)
+		+ [Casting and Reference Conversions](#casting-and-reference-conversions)
+		+ [Virtual Function Members](#virtual-function-members)
+		+ [Abstract Classes and Abstract Members](#abstract-classes-and-abstract-members)
+		+ [Hiding Inherited Members](#hiding-inherited-members)
+		+ [Sealing Functions and Classes](#sealing-functions-and-classes)
+		+ [The `base` Keyword](#the-base-keyword)
+		+ [Constructors and Inheritance](#constructors-and-inheritance)
+		+ [Overloading and Resolution](#overloading-and-resolution)
+	* [The `object` Type](#the-object-type)
+		+ [Boxing and Unboxing](#boxing-and-unboxing)
+	* [Structs](#structs)
+	* [Access Modifiers](#access-modifiers)
+		+ [Friend Assemblies](#friend-assemblies)
+		+ [Accessibility Capping](#accessibility-capping)
+		+ [Restrictions on Access Modifiers](#restrictions-on-access-modifiers)
+	* [Interfaces](#interfaces)
+		+ [Extending Interfaces](#extending-interfaces)
+		+ [Explicit Interface Implementation](#explicit-interface-implementation)
+		+ [Virtual Implementation and Reimplementation](#virtual-implementation-and-reimplementation)
+	* [Enums](#enums)
+	* [Nested Types](#nested-types)
+	* [Generics](#generics)
+		+ [Generic Types](#generic-types)
+		+ [Purpose of Generics](#purpose-of-generics)
+		+ [Generic Methods](#generic-methods)
+		+ [Declaring Type Parameters](#declaring-type-parameters)
+		+ [Generic Constraints](#generic-constraints)
+		+ [Subclassing Generic types](#subclassing-generic-types)
+		+ [Static Data](#static-data)
+		+ [Type Parameters and Conversions](#type-parameters-and-conversions)
+
 # C#, the Language:
 ## Basics:
 ### Hello, Jahan!
@@ -886,50 +963,46 @@ class A<T,V> {}
 
 ### Generic Constraints:
 - Constraints are upper bounds you put on your type parameters, thus restricting what types can be used to fill your template types. Constraints can be one of the following:
-	+ **`a`**
-	+ **`a`**
-	+ **`a`**
-	+ **`a`**
-	+ **`a`**
-	+ **`aa`**
-	+ **`a`**
+	+ **`where T: base-class`**: type parameter can only match or subclasses some class.
+	+ **`where T: interface`**: type parameter must implement a give interface:
+```cs
+static T Max <T> (T a, T b) where T : IComparable<T>{
+	return a.CompareTo (b) > 0 ? a : b;
+}
+```
+	+ **`where T: class`**: T must be a reference type.
+	+ **`where T: struct`**: T must be a value type
+	+ **`where T: new()`**: T must have a parameterless constructor.
+	+ **`where T: where T: `**
+	+ **`where U: T`**: One type parameter must derive from another type parameter. Imagine extracting a sublist from another list.
 
 ### Subclassing Generic types:
--
+- A generic can extend can extend another generic while leaving the subclass types open:
+```cs
+class Multiple<T> { ... }
+class Pair<T> : Multiple<T> { ... }
+```
+- The subclass can close the type paramters:
+```cs
+class Multiple<T> { ... }
+class StringMultiple : Multiple<string> { ... }
+```
+- The subclass can add its own type parameters:
+```cs
 
-### Self-
-Referencing Generic Declarations:
--
+class Multiple<T> { ... }
+class Pair<T, U> : Multiple<T> { ... }
+```
 
 ### Static Data:
--
+- Static data is unique not for the open type but for each of the closed types that use the genric:
+```cs
+class SomeClass<T>{ public static int cases;}
+++SomeClass<int>.cases; // 1
+++SomeClass<int>.cases; // 2
+++SomeClass<string>.cases; // 1
+++SomeClass<string>.cases; // 2
+```
 
 ### Type Parameters and Conversions:
--
-
-### Covariance:
--
-
-### Contravariance:
--
-
-### C# Generics vs C++ Templates:
--
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- There are a few issues related to conversions and casting relating to generics. I wont touch on those unless I face such problems.
