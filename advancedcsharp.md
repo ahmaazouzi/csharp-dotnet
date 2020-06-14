@@ -106,9 +106,8 @@ class Lam{
 }
 ```
 
-
 ## Anonymous Methods:
--
+- What's the point if lambdas can do this already and why trying hard to making things much more complicated than they should be!?
 
 ## Exceptions:
 -
